@@ -1,0 +1,150 @@
+ERC report (2026-11-21T10:11:02, Encoding UTF8)
+Report includes: Errors, Warnings, Exclusions
+
+***** Sheet /
+[lib_symbol_mismatch]: Symbol '+5V' doesn't match copy in library 'power'
+    ; warning
+    @(35.56 mm, 205.74 mm): Symbol #PWR22 [+5V]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(35.56 mm, 220.98 mm): Symbol #PWR23 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(40.64 mm, 76.20 mm): Symbol J1 [CONN_VIN]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(45.72 mm, 220.98 mm): Symbol #PWR24 [GND]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(52.07 mm, 78.74 mm): Symbol #PWR01 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(53.34 mm, 137.16 mm): Symbol #PWR10 [UP_+5V_OPT]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(53.34 mm, 146.05 mm): Symbol R1 [PLUG2]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(53.34 mm, 167.64 mm): Symbol #PWR11 [GND]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(58.42 mm, 220.98 mm): Symbol #PWR25 [GND]
+[lib_symbol_mismatch]: Symbol 'PC817' doesn't match copy in library 'Isolator'
+    ; warning
+    @(60.96 mm, 160.02 mm): Symbol U1 [PC817]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(62.23 mm, 83.82 mm): Symbol #PWR02 [GND]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(62.23 mm, 106.68 mm): Symbol #PWR06 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(68.58 mm, 137.16 mm): Symbol #PWR13 [UP_+5V_OPT]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(68.58 mm, 146.05 mm): Symbol R2 [PLUG2]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(68.58 mm, 167.64 mm): Symbol #PWR12 [GND]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(74.93 mm, 83.82 mm): Symbol #PWR03 [GND]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(74.93 mm, 106.68 mm): Symbol #PWR07 [GND]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(87.63 mm, 83.82 mm): Symbol #PWR04 [GND]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(87.63 mm, 106.68 mm): Symbol #PWR08 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(92.71 mm, 76.20 mm): Symbol #PWR05 [UP_+5V_OPT]
+[lib_symbol_mismatch]: Symbol '+5V' doesn't match copy in library 'power'
+    ; warning
+    @(92.71 mm, 99.06 mm): Symbol #PWR09 [+5V]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(113.03 mm, 147.32 mm): Symbol #PWR15 [GND]
+[lib_symbol_mismatch]: Symbol '+5V' doesn't match copy in library 'power'
+    ; warning
+    @(121.92 mm, 137.16 mm): Symbol #PWR14 [+5V]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(121.92 mm, 172.72 mm): Symbol #PWR16 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(124.46 mm, 160.02 mm): Symbol U2 [MCP6022]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(176.53 mm, 190.50 mm): Symbol R20 [PLUG2]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(185.42 mm, 162.56 mm): Symbol U2 [MCP6022]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(222.25 mm, 147.32 mm): Symbol #PWR19 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(224.79 mm, 177.80 mm): Symbol R13 [PLUG2]
+[lib_symbol_mismatch]: Symbol '+5V' doesn't match copy in library 'power'
+    ; warning
+    @(231.14 mm, 137.16 mm): Symbol #PWR18 [+5V]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(231.14 mm, 172.72 mm): Symbol #PWR20 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(233.68 mm, 160.02 mm): Symbol U3 [LM393]
+[lib_symbol_mismatch]: Symbol '+5V' doesn't match copy in library 'power'
+    ; warning
+    @(246.38 mm, 152.40 mm): Symbol #PWR17 [+5V]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(254.00 mm, 184.15 mm): Symbol #PWR21 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(269.24 mm, 186.69 mm): Symbol U3 [LM393]
+[lib_symbol_mismatch]: Symbol '+5V' doesn't match copy in library 'power'
+    ; warning
+    @(283.21 mm, 223.52 mm): Symbol #PWR29 [+5V]
+[lib_symbol_mismatch]: Symbol '+5V' doesn't match copy in library 'power'
+    ; warning
+    @(307.34 mm, 138.43 mm): Symbol #PWR26 [+5V]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(307.34 mm, 175.26 mm): Symbol U4 [PICAXE_08M2_OPT]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(307.34 mm, 223.52 mm): Symbol J3 [CONN_J3]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(307.34 mm, 234.95 mm): Symbol #PWR30 [GND]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(314.96 mm, 148.59 mm): Symbol #PWR27 [GND]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(314.96 mm, 196.85 mm): Symbol #PWR28 [GND]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(340.36 mm, 198.12 mm): Symbol #PWR31 [GND]
+[lib_symbol_mismatch]: Symbol 'Jumper_3_Open' doesn't match copy in library 'Jumper'
+    ; warning
+    @(365.76 mm, 160.02 mm): Symbol JP2 [Jumper_3_Open]
+[lib_symbol_mismatch]: Symbol 'GND' doesn't match copy in library 'power'
+    ; warning
+    @(370.84 mm, 175.26 mm): Symbol #PWR32 [GND]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'filter'
+    ; warning
+    @(389.89 mm, 172.72 mm): Symbol J2 [CONN_PROG]
+
+ ** ERC messages: 46  Errors 0  Warnings 46
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters

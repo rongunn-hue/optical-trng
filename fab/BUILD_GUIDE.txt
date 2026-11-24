@@ -1,0 +1,185 @@
+OPTICAL TRNG VERSION 2 (plug-in resistors) - STRIPBOARD BUILD GUIDE (ElectroCookie boards)
+======================================================================
+
+Hole names: HALF board = <column 1-30><row A-J>, e.g. 14E; rails = T-/T+ (top), B-/B+ (bottom).
+            MINI board = <column A-J><row 1-17>, e.g. E3.
+Every hole in a 5-hole strip is the SAME node. Parts that span 0.1 in are mounted standing.
+Wires: insulated, run straight horizontal/vertical only (bends shown in the pictures).
+ALL ON/OFF-BOARD CONNECTIONS ARE STANDARD DUPONT PINS (0.1 in male header pins, long side up) with Dupont jumper wires
+  between the boards; nothing off-board is a cut wire. Each pin sits in the hole listed under DUPONT PINS and shares that strip/rail.
+
+BOARDS NEEDED: 2 x ElectroCookie half-size (30 column) + 1 x ElectroCookie mini (17 row). (Version 1 needed 3 half boards: its boards 2 and 3 are merged here, with the T+ rail of board 2 cut in two.)
+
+PLUG-IN RESISTOR SOCKETS (they replace the jumper banks JP3-JP6 of version 1):
+  Each adjustable value is a PAIR of single-pin female sockets (machined-pin / female header pins), soldered into two holes on
+  DIFFERENT strips; a resistor of the wanted value plugs between them. ALL FOUR sockets span the centre
+  channel: one pin on each edge of the channel, directly opposite each other in the same column (rows F and E, 0.3 in apart),
+  so the resistor lies across the gap. An EMPTY socket is always safe:
+  R1 empty = LED off, R2 empty = no signal, R20 empty = stage B x101, R13 empty = no hysteresis.
+  Plug values: R1 7.5k/3.9k*/2.0k (0.5/1.0/1.9 mA); R2 68*/220/680; R20 28.0k*/88.7k/none (x22.9/x48/x101); R13 1M/330k/100k* (5/15/47 mV).
+  J3 is a 1x8 header snapped into two 1x4 pieces, one each side of the PICAXE.
+
+CHECK: layout_check.txt - the board strips, rails, wires and part pins were rebuilt into nets
+  by fab_layout.py and compared with schematic/optical_trng_v2.circuit: all 24 nets match,
+  no extra connections, no hole used twice.
+
+BOARD 1 - POWER + OPTICAL DETECTOR
+----------------------------------
+Rails: T-=GND, T+=+5V_OPT, B-=GND, B+=VIN_9V
+
+PARTS:
+  J1   9V IN        pin1 1E (VIN_9V), pin2 2E (GND)
+  U6   WS78L05      pin3 1C (VIN_9V), pin2 2C (GND), pin1 3C (+5V)
+  C10  0.33uF       pin1 1D (VIN_9V), pin2 2D (GND)
+  C11  0.1uF        pin1 3D (+5V), pin2 4D (GND)
+  U5   WS78L05      pin3 6H (VIN_9V), pin2 7H (GND), pin1 8H (+5V_OPT)
+  C8   0.33uF       pin1 6I (VIN_9V), pin2 7I (GND)
+  C9   0.1uF        pin1 8I (+5V_OPT), pin2 9I (GND)
+  R1   LED socket   pin1 15F (+5V_OPT), pin2 15E (LED_DRIVE)
+  U1   FOD852       pin1 18E (LED_DRIVE), pin2 19E (GND), pin4 18F (DETECTOR), pin3 19F (GND)
+  TP1  TP           pin1 18J (DETECTOR)
+  R2   LOAD socket  pin1 23F (+5V_OPT), pin2 23E (DETECTOR)
+
+ON-BOARD WIRES:
+  VIN_9V             1A -> B+ rail col 1
+  GND                2A -> B- rail col 2
+  GND                4A -> B- rail col 4
+  VIN_9V             6A -> B+ rail col 6
+  VIN_9V             6E -> 6F
+  GND                7J -> T- rail col 7
+  +5V_OPT            8J -> T+ rail col 8
+  GND                9J -> T- rail col 9
+  +5V_OPT            15J -> T+ rail col 15
+  LED_DRIVE          15C -> 18C
+  GND                19A -> B- rail col 19
+  GND                19J -> T- rail col 19
+  +5V_OPT            23J -> T+ rail col 23
+  DETECTOR           23A -> 20A
+  DETECTOR           20E -> 20F
+  DETECTOR           20H -> 18H
+  GND                T- rail col 30 -> B- rail col 30
+
+NOTES:
+  - Rails: T- and B- = GND (tied in column 30), T+ = +5V_OPT, B+ = 9 V input (VIN). T+ and B+ are NOT tied.
+  - Leave the side "power jumper" pads open.
+  - U5/U6 TO-92: flat face toward the TOP edge of the board, so left-to-right is IN, GND, OUT. Keep the row under the rounded side empty.
+  - R1 socket = 15F + 15E, R2 socket = 23F + 23E: pins on the two edges of the centre channel, 0.3 in apart. The 1/2 W resistor of R2 is longer than that: bend its leads UP so the body sits clear of the board, above the gap.
+
+BOARD 2 - AMPLIFIER (MCP6022) + VREF + COMPARATOR (LM393)
+---------------------------------------------------------
+Rails: T-=GND, T+=VREF, B-=GND, B+=VREF
+
+PARTS:
+  TP2  TP           pin1 T+ rail col 6 (VREF)
+  C3   100nF        pin1 T+ rail col 2 (VREF), pin2 T- rail col 2 (GND)
+  C2   10uF         pin1 T+ rail col 4 (VREF), pin2 T- rail col 4 (GND)
+  R4   10k          pin1 T+ rail col 5 (VREF), pin2 T- rail col 5 (GND)
+  R3   10k          pin1 7J (+5V), pin2 T+ rail col 7 (VREF)
+  U2   MCP6022      pin1 8E (AMP_A_OUT), pin2 9E (AMP_A_MINUS), pin3 10E (AMP_A_PLUS), pin4 11E (GND), pin8 8F (+5V), pin7 9F (AMP_B_OUT), pin6 10F (AMP_B_MINUS), pin5 11F (AMP_B_PLUS)
+  C5   100nF        pin1 8J (+5V), pin2 T- rail col 8 (GND)
+  C1   100nF        pin1 6B (DETECTOR), pin2 10B (AMP_A_PLUS)
+  R5   100k         pin1 10A (AMP_A_PLUS), pin2 B+ rail col 10 (VREF)
+  R6   1k           pin1 9A (AMP_A_MINUS), pin2 B+ rail col 9 (VREF)
+  R7   47k          pin1 8D (AMP_A_OUT), pin2 9D (AMP_A_MINUS)
+  TP3  TP           pin1 8A (AMP_A_OUT)
+  C4   100nF        pin1 12E (AMP_A_OUT), pin2 12F (AMP_B_PLUS)
+  R8   100k         pin1 12J (AMP_B_PLUS), pin2 T+ rail col 12 (VREF)
+  R9   1k           pin1 10J (AMP_B_MINUS), pin2 T+ rail col 10 (VREF)
+  R10  100k         pin1 9H (AMP_B_OUT), pin2 10H (AMP_B_MINUS)
+  TP4  TP           pin1 9J (AMP_B_OUT)
+  R20  GAIN         pin1 15F (AMP_B_OUT), pin2 15E (AMP_B_MINUS)
+  U3   LM393        pin1 20E (CMP_A_OUT), pin2 21E (AMP_B_OUT), pin3 22E (CMP_A_PLUS), pin4 23E (GND), pin8 20F (+5V), pin7 21F (NC), pin6 22F (VREF), pin5 23F (GND)
+  C6   100nF        pin1 20G (+5V), pin2 23G (GND)
+  R11  1.0k         pin1 B+ rail col 22 (VREF), pin2 22A (CMP_A_PLUS)
+  TP5  TP           pin1 20A (CMP_A_OUT)
+  R12  4.7k         pin1 T+ rail col 25 (+5V), pin2 25J (CMP_A_OUT)
+  R13  HYST         pin1 27F (CMP_A_OUT), pin2 27E (CMP_A_PLUS)
+
+ON-BOARD WIRES:
+  +5V                7I -> 8I
+  GND                11A -> B- rail col 11
+  AMP_A_OUT          8C -> 12C
+  AMP_B_PLUS         11H -> 12H
+  AMP_B_OUT          9I -> 15I
+  AMP_B_MINUS        15B -> 13B
+  AMP_B_MINUS        13E -> 13F
+  AMP_B_MINUS        13G -> 10G
+  AMP_B_OUT          15H -> 18H
+  AMP_B_OUT          18F -> 18E
+  AMP_B_OUT          18D -> 21D
+  +5V                20J -> T+ rail col 20
+  GND                23J -> T- rail col 23
+  GND                23A -> B- rail col 23
+  VREF               24A -> B+ rail col 24
+  VREF               24E -> 24F
+  VREF               22H -> 24H
+  CMP_A_OUT          20C -> 25C
+  CMP_A_OUT          25E -> 25F
+  CMP_A_OUT          25I -> 27I
+  CMP_A_PLUS         22B -> 27B
+  GND                T- rail col 30 -> B- rail col 30
+  VREF               T+ rail col 14 -> B+ rail col 14
+
+NOTES:
+  - CUT THE T+ RAIL (one knife cut through the copper) between columns 17 and 18. Columns 1-17 of T+ = VREF 2.5 V; columns 18-30 of T+ = +5V. Check with a meter that the two sections are open before power.
+  - T- and B- = GND (tied in column 30). B+ = VREF (tied to the VREF section of T+ in column 14). NOT +5V.
+  - R3, R4, R7, R10, R12 and the rail-to-rail parts span 0.1 in: mount them standing (hairpin).
+  - C2 10uF: + lead in T+ (VREF), - lead in T- (GND).
+  - U3 pin 7 (second comparator output) is unused: leave its strip (column 21 upper) empty.
+  - R20 / R13 sockets: pins on the two edges of the centre channel (rows F and E), directly opposite.
+
+BOARD 3 - PICAXE-08M2 + PROGRAMMING
+-----------------------------------
+
+PARTS:
+  C7   100nF        pin1 D2 (+5V), pin2 G2 (GND)
+  U4   PICAXE-08M2  pin1 E3 (+5V), pin2 E4 (PICAXE_SERIAL_IN), pin3 E5 (PICAXE_C4), pin4 E6 (CMP_A_OUT), pin5 F6 (PICAXE_C2), pin6 F5 (PICAXE_C1), pin7 F4 (PICAXE_SERIAL_OUT), pin8 F3 (GND)
+  J3   J3 1-4       pin1 A3 (+5V), pin2 A4 (PICAXE_SERIAL_IN), pin3 A5 (PICAXE_C4), pin4 A6 (CMP_A_OUT)
+  J3   J3 5-8       pin5 J6 (PICAXE_C2), pin6 J5 (PICAXE_C1), pin8 J3 (GND)
+  J3   J3 7         pin7 J10 (PICAXE_OUT0)
+  JP1  PROG IN      pin1 C16 (SERIN_PROGRAM_RESISTOR), pin2 C15 (PICAXE_SERIAL_IN)
+  R15  10k          pin1 D14 (PICAXE_SERIAL_IN), pin2 F14 (GND)
+  R14  22k          pin1 F16 (PROGRAM_TX_TO_PICAXE), pin2 D16 (SERIN_PROGRAM_RESISTOR)
+  J2   PJ-307       pin1 H14 (GND), pin2 H16 (PROGRAM_TX_TO_PICAXE), pin3 J15 (PICAXE_TX_TO_PROGRAM)
+  JP2  PROG/OUT     pin1 I12 (PICAXE_TX_TO_PROGRAM), pin2 I11 (PICAXE_SERIAL_OUT), pin3 I10 (PICAXE_OUT0)
+
+ON-BOARD WIRES:
+  +5V                C2 -> C3
+  GND                H2 -> H3
+  PICAXE_SERIAL_IN   B4 -> B14
+  PICAXE_SERIAL_IN   A14 -> A15
+  GND                I3 -> I9
+  PICAXE_SERIAL_OUT  H4 -> H11
+  GND                F13 -> F9
+  PICAXE_TX_TO_PROGRAM F15 -> F12   (SOLDER SIDE, under the board)
+
+NOTES:
+  - No rails on this board: +5V arrives on row 2 left, GND on row 2 right.
+  - J3: snap a 1x8 header into two 1x4 pieces. Pins 1-4 sit beside PICAXE pins 1-4 (column A),
+  -     pins 5-8 beside PICAXE pins 5-8 (column J), so J3 pin n is on PICAXE pin n, except pin 7 (see JP2).
+  - PICAXE notch toward row 1 (top). Pin 1 = E3.
+  - JP1: fit the shunt to program, remove it to use C.5 as an input.
+  - JP2 is wired like the PICAXE AXE021 proto-board H1 link: pin 2 (I11) = C.0 (PICAXE pin 7). Shunt on pins 1-2 = PROG (C.0 to the download jack); shunt on 2-3 = OUT (C.0 to J3 pin 7 at J10). Never both.
+  - J3 pin 7 is NOT on the PICAXE pin 7 strip any more: pull pin 7 (J4) out of the J3 5-8 header piece and fit a single pin at J10 (the OUT side of JP2).
+  - J2 = PJ-307 3.5 mm stereo jack, plug entering toward the RIGHT edge. Body covers columns G-J of rows 13-17; only column F is free.
+  - Wired as the PICAXE manual download socket: sleeve (1) = serial out, ring (2,3) = serial in via R14, tip (4,5) = 0V.
+  - Both feet of a contact are one contact inside the jack: only feet 3 (ring) and 4 (tip) have circuit pins; feet 2 and 5 are soldered, no wire.
+  - GND reaches the tip through F13 (foot 5 strip) -> F9. The sleeve is joined to JP2 pin 1 by a wire UNDER the board (F15 -> F12, solder side).
+  - The two outer locating posts, one pitch beyond column J at rows 13 and 17, have no holes: clip them off. VERIFY the pin map with a meter first.
+
+DUPONT PINS AND JUMPERS (all off-board connections)
+---------------------------------------------------
+14 Dupont pins (one per hole), 7 female-female Dupont jumpers, one per line below (length chosen from board placement).
+
+  +5V        B1 3E  <->  B2 7H
+  GND        B1 B- rail col 5  <->  B2 B- rail col 1
+  DETECTOR   B1 18I  <->  B2 6A
+  +5V        B1 3B  <->  B2 T+ rail col 21
+  +5V        B2 T+ rail col 22  <->  B3 A2
+  GND        B2 T- rail col 3  <->  B3 J2
+  CMP_OUT    B2 20B  <->  B3 D6
+
+PINS PER BOARD:
+  B1: 3E (+5V), 3B (+5V), B- rail col 5 (GND), 18I (DETECTOR)
+  B2: T- rail col 3 (GND), 7H (+5V), 6A (DETECTOR), B- rail col 1 (GND), 20B (CMP_OUT), T+ rail col 21 (+5V), T+ rail col 22 (+5V)
+  B3: A2 (+5V), J2 (GND), D6 (CMP_OUT)

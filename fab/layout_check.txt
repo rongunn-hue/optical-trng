@@ -1,0 +1,3 @@
+NETLIST CHECK vs optical_trng_v2.circuit
+nets built 24, nets in circuit 24
+RESULT: MATCH - every circuit net is built exactly, no extra connections, every hole used once.

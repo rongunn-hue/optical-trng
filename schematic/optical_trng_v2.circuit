@@ -1,0 +1,79 @@
+# Optical-noise TRNG VERSION 2 (plug-in resistors): rev 0.5 circuit with jumper banks JP3-JP6 replaced by 2-pin resistor sockets R1 (LED) R2 (LOAD) R20 (GAIN) R13 (HYST). Derived from optical_trng_08m2_v05.circuit; preliminary, NOT validated for fabrication.
+# Canonical .circuit format used in CPO/HRNG: physical components, pin nets, NC, source_metadata.
+# Review manufacturer pinouts, detector saturation, comparator threshold and entropy before fabrication.
+circuit "Optical Noise TRNG — FOD852 MCP6022 LM393 PICAXE-08M2"
+
+component U1 FOD852
+component U2 MCP6022
+component U3 LM393
+component U4 PICAXE-08M2
+component U5 WS78L05
+component U6 WS78L05
+component R1 RESISTOR_SOCKET_2PIN
+component R2 RESISTOR_SOCKET_2PIN
+component R3 GENERIC_RESISTOR
+component R4 GENERIC_RESISTOR
+component R5 GENERIC_RESISTOR
+component R6 GENERIC_RESISTOR
+component R7 GENERIC_RESISTOR
+component R8 GENERIC_RESISTOR
+component R9 GENERIC_RESISTOR
+component R10 GENERIC_RESISTOR
+component R11 GENERIC_RESISTOR
+component R12 GENERIC_RESISTOR
+component R13 RESISTOR_SOCKET_2PIN
+component R14 GENERIC_RESISTOR
+component R15 GENERIC_RESISTOR
+component R20 RESISTOR_SOCKET_2PIN
+component C1 GENERIC_CAPACITOR
+component C2 GENERIC_CAPACITOR
+component C3 GENERIC_CAPACITOR
+component C4 GENERIC_CAPACITOR
+component C5 GENERIC_CAPACITOR
+component C6 GENERIC_CAPACITOR
+component C7 GENERIC_CAPACITOR
+component C8 GENERIC_CAPACITOR
+component C9 GENERIC_CAPACITOR
+component C10 GENERIC_CAPACITOR
+component C11 GENERIC_CAPACITOR
+component J1 GENERIC_CONNECTOR_2
+component J2 GENERIC_CONNECTOR_3
+component J3 GENERIC_CONNECTOR_8
+component JP1 GENERIC_JUMPER_2
+component JP2 GENERIC_JUMPER_3
+component TP1 GENERIC_TESTPOINT
+component TP2 GENERIC_TESTPOINT
+component TP3 GENERIC_TESTPOINT
+component TP4 GENERIC_TESTPOINT
+component TP5 GENERIC_TESTPOINT
+
+net "VIN_9V" J1.1 U5.3 U6.3 C8.1 C10.1
+net "+5V_OPT" U5.1 C9.1 R1.1 R2.1
+net "+5V" U6.1 C11.1 J3.1 R3.1 R12.1 U2.8 U3.8 U4.1 C5.1 C6.1 C7.1
+net "GND" J3.8 J1.2 U1.2 U1.3 U2.4 U3.4 U4.8 R4.2 C2.2 C3.2 C5.2 C6.2 C7.2 R15.2 J2.1 U3.5 U5.2 U6.2 C8.2 C9.2 C10.2 C11.2
+net "LED_DRIVE" R1.2 U1.1
+net "DETECTOR" U1.4 R2.2 C1.1 TP1.1
+net "VREF" R3.2 R4.1 C2.1 C3.1 R5.2 R6.2 R8.2 R9.2 R11.1 U3.6 TP2.1
+net "AMP_A_PLUS" C1.2 R5.1 U2.3
+net "AMP_A_MINUS" R6.1 R7.2 U2.2
+net "AMP_A_OUT" U2.1 R7.1 C4.1 TP3.1
+net "AMP_B_PLUS" C4.2 R8.1 U2.5
+net "AMP_B_MINUS" R9.1 R10.2 R20.2 U2.6
+net "AMP_B_OUT" U2.7 R10.1 R20.1 U3.2 TP4.1
+net "CMP_A_PLUS" R11.2 R13.2 U3.3
+net "CMP_A_OUT" U3.1 R12.2 R13.1 U4.4 J3.4 TP5.1
+net "PICAXE_SERIAL_IN" U4.2 J3.2 R15.1 JP1.2
+net "SERIN_PROGRAM_RESISTOR" R14.2 JP1.1
+net "PROGRAM_TX_TO_PICAXE" J2.2 R14.1
+net "PICAXE_SERIAL_OUT" U4.7 JP2.2
+# JP2 (rev 0.5) = PICAXE AXE021 proto-board style changeover link on leg 7 (C.0 / Serial Out): pin 2 = COMMON = U4.7; shunt on 1-2 = PROG (leg 7 to the download socket); shunt on 2-3 = OUT (leg 7 to the J3.7 output pin).
+net "PICAXE_OUT0" JP2.3 J3.7
+net "PICAXE_TX_TO_PROGRAM" JP2.1 J2.3
+
+
+nc U3.7
+net "PICAXE_C4" U4.3 J3.3
+net "PICAXE_C2" U4.5 J3.5
+net "PICAXE_C1" U4.6 J3.6
+
+source_metadata '{"normalized": {"schema": "manual-circuit-design-1", "title": "Optical Noise TRNG \\u2014 FOD852 MCP6022 LM393 PICAXE-08M2", "rails": ["VIN_9V", "+5V_OPT", "+5V", "GND"], "groups": [], "blocks": [{"name": "POWER_AND_REFERENCE", "members": ["J1", "R3", "R4", "C2", "C3", "C5", "C6", "C7", "U5", "U6", "C8", "C9", "C10", "C11"]}, {"name": "OPTICAL_DETECTOR", "members": ["U1", "R1", "R2", "C1", "TP1"]}, {"name": "AMPLIFICATION", "members": ["U2.A", "U2.B", "R5", "R6", "R7", "R8", "R9", "R10", "C4", "TP3", "TP4", "R20"]}, {"name": "COMPARATOR", "members": ["U3.A", "U3.B", "R11", "R12", "R13", "TP5"]}, {"name": "CONTROLLER_AND_PROGRAMMING", "members": ["U4", "J2", "R14", "R15"]}, {"name": "PICAXE_BREAKOUT_AND_PROGRAM_SELECTION", "members": ["U4", "J2", "J3", "JP1", "JP2", "R14", "R15"]}], "parts": [{"ref": "C1", "value": "100nF", "package": null, "note": "AC coupling, nonpolar"}, {"ref": "C2", "value": "10uF", "package": null, "note": "VREF reservoir, polarized if electrolytic; positive to VREF"}, {"ref": "C3", "value": "100nF", "package": null, "note": null}, {"ref": "C4", "value": "100nF", "package": null, "note": "AC coupling, nonpolar"}, {"ref": "C5", "value": "100nF", "package": null, "note": "U2 local bypass"}, {"ref": "C6", "value": "100nF", "package": null, "note": "U3 local bypass"}, {"ref": "C7", "value": "100nF", "package": null, "note": "U4 local bypass"}, {"ref": "C8", "value": "0.33uF", "package": null, "note": "U5 input bypass, close to U5"}, {"ref": "C9", "value": "0.1uF", "package": null, "note": "U5 output bypass, close to U5"}, {"ref": "C10", "value": "0.33uF", "package": null, "note": "U6 input bypass, close to U6"}, {"ref": "C11", "value": "0.1uF", "package": null, "note": "U6 output bypass, close to U6"}, {"ref": "J1", "value": "VIN_9V", "package": null, "note": "9 V DC input (pin 1 VIN, pin 2 GND), shared by U5 and U6"}, {"ref": "J2", "value": "PICAXE_PROGRAM", "package": null, "note": null}, {"ref": "J3", "value": "PICAXE_ALL_8_PINS", "package": null, "note": "J3 8-pin breakout, J3.n = PICAXE pin n EXCEPT J3.7, which is the OUT side of JP2 (PICAXE_OUT0) and reaches C.0 only with the JP2 shunt on 2-3; includes +5V/GND; C.3 also carries comparator output"}, {"ref": "JP1", "value": "2PIN_SHUNT", "package": null, "note": "Closed for download Serial In; open to isolate programming input feed; R15 10k pulldown stays attached"}, {"ref": "JP2", "value": "3PIN_PROG_OUT", "package": null, "note": "AXE021 proto-board style changeover link on C.0: pin 2 = U4.7 (common); shunt on 1-2 = PROG (to download socket J2.3); shunt on 2-3 = OUT (to J3.7); no shunt = C.0 unconnected"}, {"ref": "R1", "value": "PLUG", "package": "2-pin socket", "note": "LED current resistor SOCKET, +5V_OPT to U1.1 (LED anode). Plug a resistor: 7.5k 0.5 mA / 3.9k 1.0 mA / 2.0k 1.9 mA (Vf ~1.15 V assumed). EMPTY = LED off (safe). Do not plug below ~1.15k (IF limit)."}, {"ref": "R2", "value": "PLUG", "package": "2-pin socket", "note": "Collector LOAD resistor SOCKET, +5V_OPT to DETECTOR (U1.4). Plug 68 / 220 / 680 ohm (0.5 W part for 68 ohm). EMPTY = no collector supply, no signal (safe)."}, {"ref": "R3", "value": "10k", "package": null, "note": null}, {"ref": "R4", "value": "10k", "package": null, "note": null}, {"ref": "R5", "value": "100k", "package": null, "note": null}, {"ref": "R6", "value": "1k", "package": null, "note": null}, {"ref": "R7", "value": "47k", "package": null, "note": null}, {"ref": "R8", "value": "100k", "package": null, "note": null}, {"ref": "R9", "value": "1k", "package": null, "note": null}, {"ref": "R10", "value": "100k", "package": null, "note": "Always fitted: JP-GAIN with no shunt gives stage B x101 (total x4848)"}, {"ref": "R11", "value": "1.0k", "package": null, "note": "Changed from 10k so hysteresis feedback stays <=1M (leakage); see JP-HYST"}, {"ref": "R12", "value": "4.7k", "package": null, "note": null}, {"ref": "R13", "value": "PLUG", "package": "2-pin socket", "note": "HYSTERESIS feedback resistor SOCKET, CMP_A_OUT to CMP_A_PLUS (LM393 pull-up R12 4.7k). EMPTY = no hysteresis (comparator still works, may chatter). Plug 1M ~5 mV / 330k ~15 mV / 100k ~47 mV."}, {"ref": "R14", "value": "22k", "package": null, "note": "PICAXE serial-in programming resistor"}, {"ref": "R15", "value": "10k", "package": null, "note": "PICAXE serial-in pull-down"}, {"ref": "R20", "value": "PLUG", "package": "2-pin socket", "note": "GAIN resistor SOCKET in PARALLEL with fixed R10 (100k) across stage B feedback (AMP_B_OUT to AMP_B_MINUS). EMPTY = x101 (stage B). Plug 28.0k = x22.9, 88.7k = x48 (1% parts). Total gain = 48 x stage B."}, {"ref": "TP1", "value": "TESTPOINT", "package": null, "note": null}, {"ref": "TP2", "value": "TESTPOINT", "package": null, "note": null}, {"ref": "TP3", "value": "TESTPOINT", "package": null, "note": null}, {"ref": "TP4", "value": "TESTPOINT", "package": null, "note": null}, {"ref": "TP5", "value": "TESTPOINT", "package": null, "note": null}, {"ref": "U1", "value": "FOD852", "package": "DIP-4", "note": null}, {"ref": "U2", "value": "MCP6022", "package": "DIP-8 - VERIFY ORDERED SUFFIX/PACKAGE", "note": null}, {"ref": "U3", "value": "LM393", "package": "DIP-8 - VERIFY ORDERED SUFFIX/PACKAGE", "note": null}, {"ref": "U4", "value": "PICAXE-08M2", "package": "DIP-8", "note": null}, {"ref": "U5", "value": "WS78L05", "package": "TO-92", "note": "Optical rail regulator: +5V_OPT feeds only JP-LED and JP-LOAD (FOD852 LED + collector). Standard 78L05 TO-92 pinout 1=OUT 2=GND 3=IN (confirmed standard part)"}, {"ref": "U6", "value": "WS78L05", "package": "TO-92", "note": "Main rail regulator: +5V feeds MCP6022, LM393, PICAXE-08M2, VREF divider, R12 pull-up, J3.1. Standard 78L05 TO-92 pinout 1=OUT 2=GND 3=IN"}]}, "status": "PRELIMINARY_UNVALIDATED", "source_design_revision": "2.0-draft", "design_notes": ["IMPORTANT: U3.5 is tied to GND. Comparator B is unused: U3.5=GND, U3.6=VREF, U3.7=NC.", "R3/R4 form a nominal 2.5 V reference; this is NOT a buffered low-impedance reference. AC feedback currents and supply variation can modulate VREF.", "C1/R5 and C4/R8 each give nominal high-pass corner 1/(2*pi*100k*100nF) ~15.9 Hz.", "FOD852 CTR varies widely and may saturate with R2=68 ohms; no guaranteed fixed-bias noise performance. Assess worst-case CTR, LED current, VCE, and thermal margins before PCB signoff.", "Check MCP6022 common-mode input range, output swing, gain-bandwidth, and expected signal amplitude at 5 V before fabrication.", "A free-running digital output is NOT evidence of true randomness. Firmware must perform health tests and entropy assessment/conditioning; do not claim cryptographic security without validation.", "Programming header pin labels describe signals, not a physical AXE027 connector pinout. Select and verify the actual connector footprint and its wiring from PICAXE documentation.", "Add optional PCB footprint for analog VREF buffer or revised bias network only after circuit review; this revision deliberately reproduces the specified fixed-component prototype.", "Perform ERC and manually verify each IC\'s datasheet pinout and package suffix against parts actually ordered.", "J3 is an 8-pin breakout indexed by physical PICAXE DIP pin number: J3.1=+5V; .2=C.5/Serial In (input only); .3=C.4; .4=C.3/comparator input; .5=C.2; .6=C.1; .7=OUT side of JP2 (C.0 only when the JP2 shunt is on 2-3); .8=GND. Do not connect loads directly to power pins as if GPIO.", "JP1 (serial-in) is normally CLOSED for programming and OPEN to free C.5 for other use. JP2 (rev 0.5) is the PICAXE proto-board PROG/OUT changeover link on C.0: shunt on 1-2 = PROG (download socket connected, program/debug via sertxd), shunt on 2-3 = OUT (C.0 connected to J3.7 for normal output use), never both. They do not reconfigure firmware; C.5 remains input-only.", "C.3 is permanently wired to the LM393 comparator; external breakout circuitry must not drive this line unless the comparator is isolated in a later revision.", "PICAXE 08M2 serial programming requires appropriate idle input bias; R15 remains on the serial-in PICAXE side of JP1. Verify download behavior with intended cable/connector.", "Actual hysteresis depends on LM393 output low level and the R12 4.7k pull-up loaded by the selected feedback resistor; measure at TP5/U3.3 on the bench.", "C1/R5 and C4/R8 each give nominal high-pass corner 1/(2*pi*100k*100nF) ~15.9 Hz.", "Rev 0.4: J1 is a 9 V DC input feeding two WS78L05 regulators. U5 -> +5V_OPT (JP-LED, JP-LOAD only); U6 -> +5V (everything else). Common GND; the two 5 V outputs are never joined.", "U6 load: op-amps, comparator, VREF divider, pull-up and PICAXE, roughly 5-10 mA plus anything on J3.1.", "78L05 needs about 1.7 V headroom: VIN must stay above ~6.7 V under load. A 9 V battery near end of life will drop out first on U5.", "Place C8/C9 and C10/C11 within a few mm of their regulator pins. Local IC decoupling (C5, C6, C7) and VREF caps (C2, C3) retained.", "Rev 0.5: modelled on the PICAXE-08 Proto Board AXE021, whose 3-pin header H1 (OUT / PROG) selects whether leg 7 goes to the download socket or to the output. J2 is realised as a PJ-307 3.5 mm stereo jack wired like the manual download socket: sleeve = serial out, ring = serial in via R14, tip = 0V.", "VERSION 2: same circuit as rev 0.5 except that the four jumper banks JP3-JP6 and their fixed resistors (R16 R17 R18 R19 R21 R22 R23) are removed. Each adjustable value is now ONE 2-pin resistor SOCKET: R1 = LED current, R2 = collector load, R20 = stage-B gain (parallel with fixed R10), R13 = comparator hysteresis. R1/R2/R13/R20 keep the reference numbers of the rev 0.5 positions they replace. JP1 and JP2 are unchanged.", "Every empty socket is a safe state: R1 empty = LED off; R2 empty = no signal; R20 empty = stage B x101 (R10 keeps the loop closed); R13 empty = no hysteresis.", "Plug-in values (same set as rev 0.5): R1 7.5k / 3.9k / 2.0k; R2 68 / 220 / 680; R20 none / 88.7k / 28.0k (x101 / x48 / x22.9); R13 1M / 330k / 100k. Any other value may be plugged for experiments within the limits in the part notes.", "Bring-up order: plug R1 and R2 for a mid-rail TP1 (not saturated) first; then set R20 and R13 from the noise measured at TP3/TP4. U5 load: up to ~60 mA with R2 = 68 ohm plus ~2 mA LED, ~0.25 W dissipation; check before plugging lower values.", "Plug-in parts must be solid-lead resistors that fit the socket; use a socket that grips 0.6 mm leads. A resistor plugged in loosely adds contact resistance and noise in the high-impedance gain and hysteresis nodes."], "warnings": ["No verified entropy performance", "FOD852 collector bias may saturate at CTR extremes", "Validate all physical pinouts and actual purchased package suffixes before PCB", "Comparator threshold hysteresis and PICAXE firmware sampling require validation", "Resistor choices are plug-in; entropy must be assessed from raw captures at each chosen setting"]}'

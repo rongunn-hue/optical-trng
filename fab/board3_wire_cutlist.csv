@@ -1,0 +1,9 @@
+board,template,wire,net,colour,cut_length_mm,hole_span_mm,strip_each_end_mm,insulated_mm,start_col,start_row,stop_col,stop_row,side
+B3,T01,W01,GND,black,10.54,2.54,5.0,0.54,H,2,H,3,top
+B3,T02,W02,PICAXE_SERIAL_IN,blue,10.54,2.54,5.0,0.54,A,14,A,15,top
+B3,T03,W03,+5V,red,10.54,2.54,5.0,0.54,C,2,C,3,top
+B3,T04,W04,PICAXE_TX_TO_PROGRAM,blue,15.62,7.62,5.0,5.62,F,15,F,12,solder side
+B3,T05,W05,GND,black,18.16,10.16,5.0,8.16,F,13,F,9,top
+B3,T06,W06,GND,black,23.24,15.24,5.0,13.24,I,3,I,9,top
+B3,T07,W07,PICAXE_SERIAL_OUT,blue,25.78,17.78,5.0,15.78,H,4,H,11,top
+B3,T08,W08,PICAXE_SERIAL_IN,blue,33.40,25.40,5.0,23.40,B,4,B,14,top
